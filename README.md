@@ -4,17 +4,17 @@ Programme Python pour mettre à jour automatiquement un Google Sheet avec les do
 
 ## Installation
 
-1. Créer un environnement virtuel Python (recommandé) :
+1. Créer un environnement virtuel Python :
 ```bash
 python3 -m venv venv
-source venv/bin/activate  # Sur Linux/Mac
-# ou
-venv\Scripts\activate  # Sur Windows
+source venv/bin/activate
 ```
 
-2. Installer les dépendances Python :
+2. Installer les dépendances :
 ```bash
 pip install -r requirements.txt
+# Installer manuellement les nouveaux outils si nécessaire
+pip install beautifulsoup4 openai python-dotenv pyyaml requests
 ```
 
 2. Configurer les credentials Google Cloud :
@@ -30,13 +30,14 @@ pip install -r requirements.txt
 
 ## Configuration
 
-### Variables d'environnement (optionnel)
+### Variables d'environnement
 
-Vous pouvez définir ces variables d'environnement pour éviter de les saisir à chaque exécution :
+Créez un fichier `.env` à la racine pour stocker vos clés :
 
-```bash
-export GOOGLE_SHEET_ID="votre_id_google_sheet"
-export GOOGLE_SHEET_NAME="Meta TFT"  # Optionnel, "Meta TFT" par défaut
+```env
+OPENAI_API_KEY="votre_cle_openai"
+GOOGLE_SHEET_ID="votre_id_google_sheet"
+GOOGLE_SHEET_NAME="Meta TFT"  # Optionnel
 ```
 
 ### Fichier YAML
@@ -60,18 +61,19 @@ meilleurs_items:
 
 ## Utilisation
 
-Assurez-vous que l'environnement virtuel est activé, puis lancez le script :
+Assurez-vous que l'environnement virtuel est activé, puis lancez les scripts :
 
+### 1. Scraper la Meta (Tactics.tools)
+Ce script récupère les dernières compositions sur Tactics.tools et met à jour `meta.yaml` via OpenAI.
 ```bash
-source venv/bin/activate  # Si ce n'est pas déjà fait
-python update_google_sheet.py
+python scrape_meta.py
 ```
 
-Le programme :
-1. Charge le fichier `meta.yaml`
-2. Se connecte à Google Sheets
-3. Met à jour le Google Sheet avec les données
-4. Ajoute les URLs des images des champions et leurs meilleurs items
+### 2. Mettre à jour Google Sheets
+Ce script prend les données de `meta.yaml` et les injecte dans votre Google Sheet.
+```bash
+python update_google_sheet.py
+```
 
 ## Structure du Google Sheet
 
