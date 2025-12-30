@@ -39,30 +39,54 @@ def scrape_tactics_tools():
         if '&' in text and len(text) < 60:
             container = title_el.find_parent('div', class_=lambda x: x and 'p-2' in x) or title_el.parent
             
-            imgs = container.find_all('img', alt=True)
-            elements = []
-            for img in imgs:
-                alt = img['alt']
-                if not alt: continue
-                elements.append(alt)
+            # Extraire les champions et leurs items de manière structurée
+            champion_data = []
+            # On cherche les conteneurs individuels de chaque champion
+            # D'après l'inspection, ils ont ces classes
+            unit_containers = container.find_all('div', class_=lambda x: x and 'items-center' in x and 'flex-col' in x)
+            
+            if not unit_containers:
+                # Fallback si la structure est un peu différente
+                unit_containers = container.find_all('div', class_=lambda x: x and 'relative' in x and 'flex-shrink-0' in x)
+
+            for unit_div in unit_containers:
+                img = unit_div.find('img', alt=True)
+                if not img or len(img['alt']) > 25: continue
                 
-                # Essayer de trouver le coût via la classe de bordure
+                champ_name = img['alt']
+                
+                # Chercher le coût via la bordure
                 classes = img.get('class', [])
                 for cls in classes:
                     if 'border-[' in cls:
                         hex_color = cls.replace('border-[', '').replace(']', '')
                         if hex_color in COLOR_TO_COST:
-                            champion_costs[alt] = COLOR_TO_COST[hex_color]
+                            champion_costs[champ_name] = COLOR_TO_COST[hex_color]
+                
+                # Chercher les items pour ce champion précis
+                items = []
+                item_imgs = unit_div.find_all('img', alt=True)
+                for item_img in item_imgs:
+                    item_alt = item_img['alt']
+                    # Un item a généralement un nom plus long ou spécifique
+                    # et n'est pas le nom du champion lui-même
+                    if item_alt != champ_name and len(item_alt) > 3:
+                        items.append(item_alt)
+                
+                champion_data.append({
+                    "name": champ_name,
+                    "items": items
+                })
 
             if any(c['name'] == text for c in comps):
                 continue
                 
             comps.append({
                 "name": text,
-                "elements": list(dict.fromkeys(elements))
+                "champions": champion_data
             })
             
-            if len(comps) >= 8:
+            if len(comps) >= 20:
                 break
                 
     return comps, champion_costs
@@ -75,7 +99,7 @@ def generate_yaml_with_openai(raw_data, cost_mapping):
 Tu es un expert TFT (Teamfight Tactics). Voici des données brutes de compositions meta extraites de tactics.tools.
 Ta mission est de les transformer en un fichier YAML structuré.
 
-### DONNÉES BRUTES (Composition et éléments associés) :
+### DONNÉES BRUTES (Composition et champions avec leurs items réels) :
 {json.dumps(raw_data, indent=2)}
 
 ### MAPPAGE DES COÛTS (IMPORTANT : Utilise ces coûts en priorité !) :
@@ -104,12 +128,15 @@ champions_db:
 ```
 
 ### INSTRUCTIONS :
-1. Dans `meta`, la liste `champions` doit contenir le nom et le niveau d'étoiles VISE (généralement 2, mais 3 pour les champions clés dans les compositions "Reroll").
-2. Identifie les compositions "Reroll" (celles qui se basent sur des champions à 1, 2 ou 3 golds passés en 3 étoiles). Pour ces compos, mets `stars: 3` pour les champions principaux (carries et tanks principaux).
-3. Dans `champions_db`, liste TOUS les champions uniques rencontrés dans les compositions.
-4. Utilise IMPÉRATIVEMENT les coûts fournis dans le 'MAPPAGE DES COÛTS'. Si un champion n'est pas dans le mappage, utilise tes connaissances mais en priorité le mappage.
-5. Pour les items, choisis les 3 meilleurs items classiques pour ce champion dans cette compo.
-6. Réponds UNIQUEMENT avec le contenu du fichier YAML. Pas de blabla.
+1. **DÉDOUBLONNAGE STRICT** : Si plusieurs compositions partagent les mêmes synergies principales (ex: deux variantes de 'Void' ou deux variantes de 'Noxus'), ne garde QUE la meilleure (la première rencontrée dans la liste). Je veux une liste de compositions variées et uniques.
+2. Transforme les meilleures compositions uniques trouvées (vise environ 6 à 10 compositions finales très différentes).
+3. Dans `meta`, la liste `synergies` ne doit contenir QUE les noms des traits/synergies (ex: "Noxus", "Void", "Freljord", "Ionia"). **NE METS JAMAIS DE NOMS DE CHAMPIONS DANS LA LISTE SYNERGIES.**
+3. Dans `meta`, la liste `champions` doit contenir le nom et le niveau d'étoiles VISE (généralement 2, mais 3 pour les champions clés dans les compositions "Reroll").
+4. Identifie les compositions "Reroll" (celles qui se basent sur des champions à 1, 2 ou 3 golds passés en 3 étoiles). Pour ces compos, mets `stars: 3` pour les champions principaux (carries et tanks principaux).
+5. Dans `champions_db`, liste TOUS les champions uniques rencontrés dans les compositions.
+6. Utilise IMPÉRATIVEMENT les coûts fournis dans le 'MAPPAGE DES COÛTS'.
+7. **POUR LES ITEMS (TRÈS IMPORTANT)** : Utilise les items listés dans les données brutes pour chaque champion. S'il n'y a pas d'items listés pour un champion, laisse la liste vide `[]`. S'il y en a plus de 3, ne garde que les 3 meilleurs.
+8. Réponds UNIQUEMENT avec le contenu du fichier YAML. Pas de blabla.
 
 Réponse (YAML uniquement) :
 """

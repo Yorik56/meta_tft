@@ -1,8 +1,20 @@
-# Meta TFT - Mise à jour Google Sheet
+# Meta TFT - Mise à jour Google Sheet Automatisée
 
-Programme Python pour mettre à jour automatiquement un Google Sheet avec les données de méta TFT depuis un fichier YAML.
+Ce projet permet de scraper automatiquement les meilleures compositions Teamfight Tactics (TFT) depuis `tactics.tools` et de les injecter dans un Google Sheet avec un design professionnel et moderne.
 
-## Installation
+## 🚀 Fonctionnalités
+
+- **Scraping Intelligent** : Récupère le top 20 des compositions et utilise l'IA (GPT-4o) pour dédoublonner les variantes et ne garder que les meilleures compos uniques.
+- **Données Réelles** : Extraction automatique des coûts en gold (via la couleur des bordures) et des items exacts recommandés pour chaque champion.
+- **Conseils de Jeu** : Identification automatique des compositions "Reroll" avec recommandation des champions à passer en 3 étoiles (⭐⭐⭐).
+- **Design Premium** : 
+  - Mode sombre (Slate-900).
+  - Alignement parfait (tout est centré).
+  - Couleurs de fond dynamiques selon le coût en gold (Gris, Vert, Bleu, Violet, Or).
+  - Icônes de synergies nettes (40x40px) avec colonnes larges pour la lisibilité.
+- **Base de données centralisée** : Utilisation d'un `champions_db` dans le YAML pour garantir la cohérence des items et des coûts.
+
+## 🛠️ Installation
 
 1. Créer un environnement virtuel Python :
 ```bash
@@ -13,83 +25,55 @@ source venv/bin/activate
 2. Installer les dépendances :
 ```bash
 pip install -r requirements.txt
-# Installer manuellement les nouveaux outils si nécessaire
-pip install beautifulsoup4 openai python-dotenv pyyaml requests
 ```
 
-2. Configurer les credentials Google Cloud :
-   - Allez sur [Google Cloud Console](https://console.cloud.google.com/)
-   - Créez un nouveau projet ou sélectionnez un projet existant
-   - Activez l'API Google Sheets et Google Drive
-   - Créez un compte de service et téléchargez la clé JSON
-   - Renommez le fichier téléchargé en `credentials.json` et placez-le à la racine du projet
+3. Configurer les credentials Google Cloud :
+   - Placez votre fichier `credentials.json` (compte de service) à la racine du projet.
+   - Partagez votre Google Sheet avec l'adresse email du compte de service.
 
-3. Partager le Google Sheet avec le compte de service :
-   - Ouvrez votre Google Sheet
-   - Cliquez sur "Partager" et ajoutez l'email du compte de service (trouvable dans credentials.json, champ `client_email`)
+## ⚙️ Configuration (.env)
 
-## Configuration
-
-### Variables d'environnement
-
-Créez un fichier `.env` à la racine pour stocker vos clés :
+Créez un fichier `.env` à la racine :
 
 ```env
 OPENAI_API_KEY="votre_cle_openai"
 GOOGLE_SHEET_ID="votre_id_google_sheet"
-GOOGLE_SHEET_NAME="Meta TFT"  # Optionnel
+META_MIN_CHAMPIONS="8"  # Largeur minimale du tableau (en colonnes champions)
 ```
 
-### Fichier YAML
+## 📂 Structure des données (meta.yaml)
 
-Le fichier `meta.yaml` contient les données de méta. Structure :
+Le fichier est géré automatiquement mais suit cette structure :
+- `meta` : Liste des compositions (classement, carry, synergies, liste des champions).
+- `champions_db` : Base de données unique par champion (coût, items réels, traits).
 
-```yaml
-meta:
-  - classement: "A (top)"
-    compo: "Ionian Slayers"
-    early_chercher: "Yasuo / Yone / Shen / Aphelios"
-    carries: "Yasuo / Yone"
-    synergies: "Ionia / Slayers"
-    compo_complete: "Shen, Aphelios, Yasuo, Yone"
-    champions: ["Shen", "Aphelios", "Yasuo", "Yone"]
+## 🎮 Utilisation
 
-meilleurs_items:
-  "Yasuo": ["Infinity Edge", "Bloodthirster", "Guardian Angel"]
-  # ...
-```
-
-## Utilisation
-
-Assurez-vous que l'environnement virtuel est activé, puis lancez les scripts :
-
-### 1. Scraper la Meta (Tactics.tools)
-Ce script récupère les dernières compositions sur Tactics.tools et met à jour `meta.yaml` via OpenAI.
+### 1. Mise à jour complète (Scraping + Sheet)
+C'est la commande recommandée pour tout rafraîchir d'un coup :
 ```bash
-python scrape_meta.py
+./venv/bin/python scrape_meta.py && ./venv/bin/python update_google_sheet.py
 ```
 
-### 2. Mettre à jour Google Sheets
-Ce script prend les données de `meta.yaml` et les injecte dans votre Google Sheet.
+### 2. Scraper uniquement
+Récupère les données de `tactics.tools` et met à jour `meta.yaml`.
 ```bash
-python update_google_sheet.py
+./venv/bin/python scrape_meta.py
 ```
 
-## Structure du Google Sheet
+### 3. Mettre à jour le Sheet uniquement
+Injecte les données actuelles de `meta.yaml` dans Google Sheets.
+```bash
+./venv/bin/python update_google_sheet.py
+```
 
-Le Google Sheet contiendra les colonnes suivantes :
-- Classement méta
-- Compo
-- Early à chercher
-- Carries
-- Synergies
-- Compo complète
-- Icônes champions (URLs des images)
-- Meilleurs items (champions avec leurs items recommandés)
+## 🎨 Design du Google Sheet
 
-## Notes
+Le tableau est structuré ainsi :
+- **A** : Classement méta (S, A, etc.) en Or.
+- **B..D** : Infos de compo (Nom, Early, Carries).
+- **E** : Synergies (Icônes nettes + noms).
+- **F..N** : Champions & Items (Triés par coût, colorés par rareté, avec étoiles ⭐).
 
-- Les images des champions utilisent les URLs de Data Dragon de Riot Games
-- Vous pouvez modifier les URLs d'images dans le script `update_google_sheet.py` si nécessaire
-- Le script efface le contenu existant de la feuille avant d'ajouter les nouvelles données
-
+---
+*Note : Les images sont récupérées dynamiquement via les CDNs de CommunityDragon, MetaTFT et Data Dragon.*

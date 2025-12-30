@@ -2,7 +2,7 @@ meta:
   - classement: "S"
     compo: "Noxus Kindred & SkarnerCoreFlex"
     early_chercher: "Draven / Skarner / Taric"
-    carries: "Draven / Skarner"
+    carries: "Skarner / Lucian & Senna"
     synergies: ["Noxus"]
     compo_complete: "Draven / Skarner / Taric / Lucian & Senna / Ambessa / Miss Fortune / Swain / Fiddlesticks"
     champions: 
@@ -25,8 +25,8 @@ meta:
 
   - classement: "S"
     compo: "Freljord Tryndamere & AsheCoreFlex"
-    early_chercher: "Briar / Ashe / Tryndamere"
-    carries: "Tryndamere / Ashe"
+    early_chercher: "Briar / Ashe / Neeko"
+    carries: "Ashe / Tryndamere"
     synergies: ["Freljord"]
     compo_complete: "Briar / Ashe / Neeko / Tryndamere / Draven / Sejuani / Swain / Volibear"
     champions: 
@@ -50,7 +50,7 @@ meta:
   - classement: "S"
     compo: "Ionia Yunara & WukongCoreFlex"
     early_chercher: "Wukong / Yunara / Ashe"
-    carries: "Wukong / Yunara"
+    carries: "Yunara / Wukong"
     synergies: ["Ionia"]
     compo_complete: "Wukong / Yunara / Ashe / Kennen / Sejuani / Lissandra / Renekton / Azir"
     champions: 
@@ -74,9 +74,9 @@ meta:
   - classement: "S"
     compo: "Void Kai'Sa & Rift HeraldCoreFlex"
     early_chercher: "Kog'Maw / Cho'Gath / Kai'Sa"
-    carries: "Kai'Sa / Kog'Maw"
+    carries: "Kai'Sa / Rift Herald"
     synergies: ["Void"]
-    compo_complete: "Kog'Maw / Cho'Gath / Kai'Sa / Rift Herald / Volibear / Bel'Veth / Baron Nashor"
+    compo_complete: "Kog'Maw / Cho'Gath / Kai'Sa / Rift Herald / Baron Nashor / Volibear / Bel'Veth"
     champions: 
       - name: "Kog'Maw"
         stars: 3
@@ -86,115 +86,155 @@ meta:
         stars: 2
       - name: "Rift Herald"
         stars: 2
+      - name: "Baron Nashor"
+        stars: 2
       - name: "Volibear"
         stars: 2
       - name: "Bel'Veth"
         stars: 2
-      - name: "Baron Nashor"
+
+  - classement: "S"
+    compo: "Ionia Yasuo & YoneCoreFlex"
+    early_chercher: "Shen / Yasuo / Wukong"
+    carries: "Yasuo / Yone"
+    synergies: ["Ionia"]
+    compo_complete: "Shen / Yasuo / Wukong / Yone / Sett / Kennen / Yunara / Lucian & Senna"
+    champions: 
+      - name: "Shen"
+        stars: 3
+      - name: "Yasuo"
+        stars: 3
+      - name: "Wukong"
+        stars: 2
+      - name: "Yone"
+        stars: 2
+      - name: "Sett"
+        stars: 2
+      - name: "Kennen"
+        stars: 2
+      - name: "Yunara"
+        stars: 2
+      - name: "Lucian & Senna"
         stars: 2
 
 champions_db:
   "Draven":
     cost: 3
-    traits: ["Noxus"]
-    items: ["Last Whisper", "Deathblade", "Giant Slayer"]
+    traits: []
+    items: []
   "Skarner":
     cost: 4
-    traits: ["Noxus"]
+    traits: []
     items: ["Evenshroud", "Sunfire Cape", "Bramble Vest"]
   "Taric":
     cost: 4
-    traits: ["Noxus"]
-    items: ["Evenshroud", "Sunfire Cape", "Bramble Vest"]
+    traits: []
+    items: ["Evenshroud"]
   "Lucian & Senna":
     cost: 5
-    traits: ["Noxus"]
-    items: ["Red Buff", "Last Whisper", "Thief's Gloves"]
+    traits: []
+    items: ["Red Buff", "Last Whisper"]
   "Ambessa":
     cost: 4
-    traits: ["Noxus"]
-    items: ["Red Buff", "Last Whisper", "Thief's Gloves"]
+    traits: []
+    items: []
   "Miss Fortune":
     cost: 4
-    traits: ["Noxus"]
-    items: ["Red Buff", "Last Whisper", "Thief's Gloves"]
+    traits: []
+    items: []
   "Swain":
     cost: 4
-    traits: ["Noxus"]
-    items: ["Red Buff", "Last Whisper", "Thief's Gloves"]
+    traits: []
+    items: []
   "Fiddlesticks":
     cost: 5
-    traits: ["Noxus"]
-    items: ["Red Buff", "Last Whisper", "Thief's Gloves"]
+    traits: []
+    items: ["Thief's Gloves"]
   "Briar":
     cost: 1
-    traits: ["Freljord"]
-    items: ["Last Whisper", "Deathblade", "Giant Slayer"]
+    traits: []
+    items: []
   "Ashe":
     cost: 2
-    traits: ["Freljord"]
+    traits: []
     items: ["Last Whisper", "Deathblade", "Giant Slayer"]
   "Neeko":
     cost: 2
-    traits: ["Freljord"]
-    items: ["Evenshroud", "Sunfire Cape", "Bramble Vest"]
+    traits: []
+    items: ["Evenshroud"]
   "Tryndamere":
     cost: 2
-    traits: ["Freljord"]
+    traits: []
     items: ["Quicksilver", "Titan's Resolve", "Edge of Night"]
   "Sejuani":
     cost: 3
-    traits: ["Freljord"]
-    items: ["Spirit Visage", "Freljord Emblem", "Thief's Gloves"]
+    traits: []
+    items: ["Evenshroud", "Spirit Visage"]
   "Volibear":
     cost: 5
-    traits: ["Freljord"]
-    items: ["Spirit Visage", "Freljord Emblem", "Thief's Gloves"]
+    traits: []
+    items: []
   "Wukong":
     cost: 4
-    traits: ["Ionia"]
+    traits: []
     items: ["Evenshroud", "Thief's Gloves", "Sunfire Cape"]
   "Yunara":
     cost: 4
-    traits: ["Ionia"]
+    traits: []
     items: ["Infinity Edge", "Kraken's Fury", "Last Whisper"]
   "Kennen":
     cost: 3
-    traits: ["Ionia"]
-    items: ["Infinity Edge", "Kraken's Fury", "Last Whisper"]
+    traits: []
+    items: []
   "Lissandra":
     cost: 4
-    traits: ["Ionia"]
-    items: ["Infinity Edge", "Kraken's Fury", "Last Whisper"]
+    traits: []
+    items: ["Spear of Shojin"]
   "Renekton":
     cost: 4
-    traits: ["Ionia"]
-    items: ["Infinity Edge", "Kraken's Fury", "Last Whisper"]
+    traits: []
+    items: []
   "Azir":
     cost: 5
-    traits: ["Ionia"]
-    items: ["Infinity Edge", "Kraken's Fury", "Last Whisper"]
+    traits: []
+    items: []
   "Kog'Maw":
     cost: 1
-    traits: ["Void"]
-    items: ["Sunfire Cape", "Hextech Gunblade", "Guinsoo's Rageblade"]
+    traits: []
+    items: []
   "Cho'Gath":
     cost: 2
-    traits: ["Void"]
-    items: ["Sunfire Cape", "Hextech Gunblade", "Guinsoo's Rageblade"]
+    traits: []
+    items: ["Sunfire Cape"]
   "Kai'Sa":
     cost: 4
-    traits: ["Void"]
-    items: ["Jeweled Gauntlet", "Guinsoo's Rageblade", "Hextech Gunblade"]
+    traits: []
+    items: ["Hextech Gunblade", "Guinsoo's Rageblade", "Jeweled Gauntlet"]
   "Rift Herald":
     cost: 4
-    traits: ["Void"]
+    traits: []
     items: ["Spirit Visage", "Bramble Vest", "Protector's Vow"]
-  "Bel'Veth":
-    cost: 4
-    traits: ["Void"]
-    items: ["Quicksilver", "Infinity Edge", "Hand Of Justice"]
   "Baron Nashor":
     cost: 5
-    traits: ["Void"]
-    items: ["Quicksilver", "Infinity Edge", "Hand Of Justice"]
+    traits: []
+    items: ["Infinity Edge", "Hand Of Justice"]
+  "Bel'Veth":
+    cost: 4
+    traits: []
+    items: ["Quicksilver"]
+  "Shen":
+    cost: 1
+    traits: []
+    items: []
+  "Yasuo":
+    cost: 2
+    traits: []
+    items: ["Infinity Edge", "Quicksilver", "Edge of Night"]
+  "Yone":
+    cost: 4
+    traits: []
+    items: ["Titan's Resolve", "Guinsoo's Rageblade", "Quicksilver"]
+  "Sett":
+    cost: 5
+    traits: []
+    items: []

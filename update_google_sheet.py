@@ -377,8 +377,11 @@ def update_google_sheet(
 
         # --- Structure "Excel-like" dans Google Sheets ---
         items_per_champ = 3
-        max_champs = max([len(item.get("champions", [])) for item in meta_list], default=0)
-        max_champs = max(max_champs, 1)
+        
+        # On récupère le minimum du .env (floor) mais on ne limite pas le maximum (dynamique)
+        min_champs_floor = int(os.getenv("META_MIN_CHAMPIONS", "8"))
+        max_champs_data = max([len(item.get("champions", [])) for item in meta_list], default=0)
+        max_champs = max(max_champs_data, min_champs_floor)
         
         # Colonnes fixes (1-indexed)
         col_classement = 1  # A
