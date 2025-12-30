@@ -1,0 +1,42 @@
+meta:
+  - classement: "S"
+    compo: "Noxus Kindred & SkarnerCoreFlex"
+    early_chercher: "Draven / Skarner / Taric / Lucian"
+    carries: "Kindred / Skarner"
+    synergies: "Noxus"
+    compo_complete: "Draven, Skarner, Taric, Lucian, Miss Fortune, Swain, Fiddlesticks"
+    champions: ["Draven", "Skarner", "Taric", "Lucian", "Miss Fortune", "Swain", "Fiddlesticks"]
+
+  - classement: "A (top)"
+    compo: "Freljord Tryndamere & AsheCoreFlex"
+    early_chercher: "Briar / Ashe / Neeko / Tryndamere"
+    carries: "Tryndamere / Ashe"
+    synergies: "Freljord"
+    compo_complete: "Briar, Ashe, Neeko, Tryndamere, Draven, Sejuani, Volibear"
+    champions: ["Briar", "Ashe", "Neeko", "Tryndamere", "Draven", "Sejuani", "Volibear"]
+
+  - classement: "A"
+    compo: "Ionia Yunara & WukongCoreFlex"
+    early_chercher: "Wukong / Yunara / Ashe / Kennen"
+    carries: "Yunara / Wukong"
+    synergies: "Ionia"
+    compo_complete: "Wukong, Yunara, Ashe, Kennen, Sejuani, Lissandra, Azir"
+    champions: ["Wukong", "Yunara", "Ashe", "Kennen", "Sejuani", "Lissandra", "Azir"]
+
+  - classement: "A-"
+    compo: "Void Kai'Sa & Rift HeraldCoreFlex"
+    early_chercher: "Kog'Maw / Cho'Gath / Kai'Sa / Volibear"
+    carries: "Kai'Sa / Rift Herald"
+    synergies: "Void"
+    compo_complete: "Kog'Maw, Cho'Gath, Kai'Sa, Rift Herald, Volibear, Bel'Veth, Baron Nashor"
+    champions: ["Kog'Maw", "Cho'Gath", "Kai'Sa", "Rift Herald", "Volibear", "Bel'Veth", "Baron Nashor"]
+
+meilleurs_items:
+  "Kindred": ["Guinsoo's Rageblade", "Hextech Gunblade", "Jeweled Gauntlet"]
+  "Skarner": ["Sunfire Cape", "Bramble Vest", "Evenshroud"]
+  "Tryndamere": ["Quicksilver", "Titan's Resolve", "Edge of Night"]
+  "Ashe": ["Last Whisper", "Deathblade", "Giant Slayer"]
+  "Yunara": ["Infinity Edge", "Kraken's Fury", "Last Whisper"]
+  "Wukong": ["Evenshroud", "Thief's Gloves", "Sunfire Cape"]
+  "Kai'Sa": ["Hextech Gunblade", "Guinsoo's Rageblade", "Jeweled Gauntlet"]
+  "Rift Herald": ["Spirit Visage", "Bramble Vest", "Protector's Vow"]
