@@ -1,42 +1,200 @@
 meta:
   - classement: "S"
     compo: "Noxus Kindred & SkarnerCoreFlex"
-    early_chercher: "Draven / Skarner / Taric / Lucian"
-    carries: "Kindred / Skarner"
-    synergies: "Noxus"
-    compo_complete: "Draven, Skarner, Taric, Lucian, Miss Fortune, Swain, Fiddlesticks"
-    champions: ["Draven", "Skarner", "Taric", "Lucian", "Miss Fortune", "Swain", "Fiddlesticks"]
+    early_chercher: "Draven / Skarner / Taric"
+    carries: "Draven / Skarner"
+    synergies: ["Noxus"]
+    compo_complete: "Draven / Skarner / Taric / Lucian & Senna / Ambessa / Miss Fortune / Swain / Fiddlesticks"
+    champions: 
+      - name: "Draven"
+        stars: 2
+      - name: "Skarner"
+        stars: 2
+      - name: "Taric"
+        stars: 2
+      - name: "Lucian & Senna"
+        stars: 2
+      - name: "Ambessa"
+        stars: 2
+      - name: "Miss Fortune"
+        stars: 2
+      - name: "Swain"
+        stars: 2
+      - name: "Fiddlesticks"
+        stars: 2
 
-  - classement: "A (top)"
+  - classement: "S"
     compo: "Freljord Tryndamere & AsheCoreFlex"
-    early_chercher: "Briar / Ashe / Neeko / Tryndamere"
+    early_chercher: "Briar / Ashe / Tryndamere"
     carries: "Tryndamere / Ashe"
-    synergies: "Freljord"
-    compo_complete: "Briar, Ashe, Neeko, Tryndamere, Draven, Sejuani, Volibear"
-    champions: ["Briar", "Ashe", "Neeko", "Tryndamere", "Draven", "Sejuani", "Volibear"]
+    synergies: ["Freljord"]
+    compo_complete: "Briar / Ashe / Neeko / Tryndamere / Draven / Sejuani / Swain / Volibear"
+    champions: 
+      - name: "Briar"
+        stars: 3
+      - name: "Ashe"
+        stars: 3
+      - name: "Neeko"
+        stars: 2
+      - name: "Tryndamere"
+        stars: 3
+      - name: "Draven"
+        stars: 2
+      - name: "Sejuani"
+        stars: 2
+      - name: "Swain"
+        stars: 2
+      - name: "Volibear"
+        stars: 2
 
-  - classement: "A"
+  - classement: "S"
     compo: "Ionia Yunara & WukongCoreFlex"
-    early_chercher: "Wukong / Yunara / Ashe / Kennen"
-    carries: "Yunara / Wukong"
-    synergies: "Ionia"
-    compo_complete: "Wukong, Yunara, Ashe, Kennen, Sejuani, Lissandra, Azir"
-    champions: ["Wukong", "Yunara", "Ashe", "Kennen", "Sejuani", "Lissandra", "Azir"]
+    early_chercher: "Wukong / Yunara / Ashe"
+    carries: "Wukong / Yunara"
+    synergies: ["Ionia"]
+    compo_complete: "Wukong / Yunara / Ashe / Kennen / Sejuani / Lissandra / Renekton / Azir"
+    champions: 
+      - name: "Wukong"
+        stars: 2
+      - name: "Yunara"
+        stars: 2
+      - name: "Ashe"
+        stars: 2
+      - name: "Kennen"
+        stars: 2
+      - name: "Sejuani"
+        stars: 2
+      - name: "Lissandra"
+        stars: 2
+      - name: "Renekton"
+        stars: 2
+      - name: "Azir"
+        stars: 2
 
-  - classement: "A-"
+  - classement: "S"
     compo: "Void Kai'Sa & Rift HeraldCoreFlex"
-    early_chercher: "Kog'Maw / Cho'Gath / Kai'Sa / Volibear"
-    carries: "Kai'Sa / Rift Herald"
-    synergies: "Void"
-    compo_complete: "Kog'Maw, Cho'Gath, Kai'Sa, Rift Herald, Volibear, Bel'Veth, Baron Nashor"
-    champions: ["Kog'Maw", "Cho'Gath", "Kai'Sa", "Rift Herald", "Volibear", "Bel'Veth", "Baron Nashor"]
+    early_chercher: "Kog'Maw / Cho'Gath / Kai'Sa"
+    carries: "Kai'Sa / Kog'Maw"
+    synergies: ["Void"]
+    compo_complete: "Kog'Maw / Cho'Gath / Kai'Sa / Rift Herald / Volibear / Bel'Veth / Baron Nashor"
+    champions: 
+      - name: "Kog'Maw"
+        stars: 3
+      - name: "Cho'Gath"
+        stars: 2
+      - name: "Kai'Sa"
+        stars: 2
+      - name: "Rift Herald"
+        stars: 2
+      - name: "Volibear"
+        stars: 2
+      - name: "Bel'Veth"
+        stars: 2
+      - name: "Baron Nashor"
+        stars: 2
 
-meilleurs_items:
-  "Kindred": ["Guinsoo's Rageblade", "Hextech Gunblade", "Jeweled Gauntlet"]
-  "Skarner": ["Sunfire Cape", "Bramble Vest", "Evenshroud"]
-  "Tryndamere": ["Quicksilver", "Titan's Resolve", "Edge of Night"]
-  "Ashe": ["Last Whisper", "Deathblade", "Giant Slayer"]
-  "Yunara": ["Infinity Edge", "Kraken's Fury", "Last Whisper"]
-  "Wukong": ["Evenshroud", "Thief's Gloves", "Sunfire Cape"]
-  "Kai'Sa": ["Hextech Gunblade", "Guinsoo's Rageblade", "Jeweled Gauntlet"]
-  "Rift Herald": ["Spirit Visage", "Bramble Vest", "Protector's Vow"]
+champions_db:
+  "Draven":
+    cost: 3
+    traits: ["Noxus"]
+    items: ["Last Whisper", "Deathblade", "Giant Slayer"]
+  "Skarner":
+    cost: 4
+    traits: ["Noxus"]
+    items: ["Evenshroud", "Sunfire Cape", "Bramble Vest"]
+  "Taric":
+    cost: 4
+    traits: ["Noxus"]
+    items: ["Evenshroud", "Sunfire Cape", "Bramble Vest"]
+  "Lucian & Senna":
+    cost: 5
+    traits: ["Noxus"]
+    items: ["Red Buff", "Last Whisper", "Thief's Gloves"]
+  "Ambessa":
+    cost: 4
+    traits: ["Noxus"]
+    items: ["Red Buff", "Last Whisper", "Thief's Gloves"]
+  "Miss Fortune":
+    cost: 4
+    traits: ["Noxus"]
+    items: ["Red Buff", "Last Whisper", "Thief's Gloves"]
+  "Swain":
+    cost: 4
+    traits: ["Noxus"]
+    items: ["Red Buff", "Last Whisper", "Thief's Gloves"]
+  "Fiddlesticks":
+    cost: 5
+    traits: ["Noxus"]
+    items: ["Red Buff", "Last Whisper", "Thief's Gloves"]
+  "Briar":
+    cost: 1
+    traits: ["Freljord"]
+    items: ["Last Whisper", "Deathblade", "Giant Slayer"]
+  "Ashe":
+    cost: 2
+    traits: ["Freljord"]
+    items: ["Last Whisper", "Deathblade", "Giant Slayer"]
+  "Neeko":
+    cost: 2
+    traits: ["Freljord"]
+    items: ["Evenshroud", "Sunfire Cape", "Bramble Vest"]
+  "Tryndamere":
+    cost: 2
+    traits: ["Freljord"]
+    items: ["Quicksilver", "Titan's Resolve", "Edge of Night"]
+  "Sejuani":
+    cost: 3
+    traits: ["Freljord"]
+    items: ["Spirit Visage", "Freljord Emblem", "Thief's Gloves"]
+  "Volibear":
+    cost: 5
+    traits: ["Freljord"]
+    items: ["Spirit Visage", "Freljord Emblem", "Thief's Gloves"]
+  "Wukong":
+    cost: 4
+    traits: ["Ionia"]
+    items: ["Evenshroud", "Thief's Gloves", "Sunfire Cape"]
+  "Yunara":
+    cost: 4
+    traits: ["Ionia"]
+    items: ["Infinity Edge", "Kraken's Fury", "Last Whisper"]
+  "Kennen":
+    cost: 3
+    traits: ["Ionia"]
+    items: ["Infinity Edge", "Kraken's Fury", "Last Whisper"]
+  "Lissandra":
+    cost: 4
+    traits: ["Ionia"]
+    items: ["Infinity Edge", "Kraken's Fury", "Last Whisper"]
+  "Renekton":
+    cost: 4
+    traits: ["Ionia"]
+    items: ["Infinity Edge", "Kraken's Fury", "Last Whisper"]
+  "Azir":
+    cost: 5
+    traits: ["Ionia"]
+    items: ["Infinity Edge", "Kraken's Fury", "Last Whisper"]
+  "Kog'Maw":
+    cost: 1
+    traits: ["Void"]
+    items: ["Sunfire Cape", "Hextech Gunblade", "Guinsoo's Rageblade"]
+  "Cho'Gath":
+    cost: 2
+    traits: ["Void"]
+    items: ["Sunfire Cape", "Hextech Gunblade", "Guinsoo's Rageblade"]
+  "Kai'Sa":
+    cost: 4
+    traits: ["Void"]
+    items: ["Jeweled Gauntlet", "Guinsoo's Rageblade", "Hextech Gunblade"]
+  "Rift Herald":
+    cost: 4
+    traits: ["Void"]
+    items: ["Spirit Visage", "Bramble Vest", "Protector's Vow"]
+  "Bel'Veth":
+    cost: 4
+    traits: ["Void"]
+    items: ["Quicksilver", "Infinity Edge", "Hand Of Justice"]
+  "Baron Nashor":
+    cost: 5
+    traits: ["Void"]
+    items: ["Quicksilver", "Infinity Edge", "Hand Of Justice"]
