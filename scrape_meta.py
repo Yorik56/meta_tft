@@ -5,6 +5,7 @@ import os
 import json
 from openai import OpenAI
 from dotenv import load_dotenv
+import re
 
 # Charger les variables d'environnement (.env contient OPENAI_API_KEY)
 load_dotenv()
@@ -41,12 +42,9 @@ def scrape_tactics_tools():
             
             # Extraire les champions et leurs items de manière structurée
             champion_data = []
-            # On cherche les conteneurs individuels de chaque champion
-            # D'après l'inspection, ils ont ces classes
             unit_containers = container.find_all('div', class_=lambda x: x and 'items-center' in x and 'flex-col' in x)
             
             if not unit_containers:
-                # Fallback si la structure est un peu différente
                 unit_containers = container.find_all('div', class_=lambda x: x and 'relative' in x and 'flex-shrink-0' in x)
 
             for unit_div in unit_containers:
@@ -55,7 +53,7 @@ def scrape_tactics_tools():
                 
                 champ_name = img['alt']
                 
-                # Chercher le coût via la bordure
+                # Coût via bordure
                 classes = img.get('class', [])
                 for cls in classes:
                     if 'border-[' in cls:
@@ -63,13 +61,11 @@ def scrape_tactics_tools():
                         if hex_color in COLOR_TO_COST:
                             champion_costs[champ_name] = COLOR_TO_COST[hex_color]
                 
-                # Chercher les items pour ce champion précis
+                # Items du champion dans la compo
                 items = []
                 item_imgs = unit_div.find_all('img', alt=True)
                 for item_img in item_imgs:
                     item_alt = item_img['alt']
-                    # Un item a généralement un nom plus long ou spécifique
-                    # et n'est pas le nom du champion lui-même
                     if item_alt != champ_name and len(item_alt) > 3:
                         items.append(item_alt)
                 
@@ -96,18 +92,16 @@ def generate_yaml_with_openai(raw_data, cost_mapping):
     client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
     
     prompt = f"""
-Tu es un expert TFT (Teamfight Tactics). Voici des données brutes de compositions meta extraites de tactics.tools.
+Tu es un expert TFT (Teamfight Tactics). Voici des données brutes de compositions meta.
 Ta mission est de les transformer en un fichier YAML structuré.
 
-### DONNÉES BRUTES (Composition et champions avec leurs items réels) :
+### DONNÉES BRUTES (Compositions et champions avec items scrappés) :
 {json.dumps(raw_data, indent=2)}
 
-### MAPPAGE DES COÛTS (IMPORTANT : Utilise ces coûts en priorité !) :
+### MAPPAGE DES COÛTS (IMPORTANT) :
 {json.dumps(cost_mapping, indent=2)}
 
 ### FORMAT ATTENDU :
-Le YAML doit avoir deux clés racines : `meta` et `champions_db`.
-
 ```yaml
 meta:
   - classement: "S"
@@ -127,21 +121,26 @@ champions_db:
     items: ["Item1", "Item2", "Item3"]
 ```
 
-### INSTRUCTIONS :
-1. **DÉDOUBLONNAGE STRICT** : Si plusieurs compositions partagent les mêmes synergies principales (ex: deux variantes de 'Void' ou deux variantes de 'Noxus'), ne garde QUE la meilleure (la première rencontrée dans la liste). Je veux une liste de compositions variées et uniques.
-2. Transforme les meilleures compositions uniques trouvées (vise environ 6 à 10 compositions finales très différentes).
-3. Dans `meta`, la liste `synergies` ne doit contenir QUE les noms des traits/synergies (ex: "Noxus", "Void", "Freljord", "Ionia"). **NE METS JAMAIS DE NOMS DE CHAMPIONS DANS LA LISTE SYNERGIES.**
-3. Dans `meta`, la liste `champions` doit contenir le nom et le niveau d'étoiles VISE (généralement 2, mais 3 pour les champions clés dans les compositions "Reroll").
-4. Identifie les compositions "Reroll" (celles qui se basent sur des champions à 1, 2 ou 3 golds passés en 3 étoiles). Pour ces compos, mets `stars: 3` pour les champions principaux (carries et tanks principaux).
-5. Dans `champions_db`, liste TOUS les champions uniques rencontrés dans les compositions.
-6. Utilise IMPÉRATIVEMENT les coûts fournis dans le 'MAPPAGE DES COÛTS'.
-7. **POUR LES ITEMS (TRÈS IMPORTANT)** : Utilise les items listés dans les données brutes pour chaque champion. S'il n'y a pas d'items listés pour un champion, laisse la liste vide `[]`. S'il y en a plus de 3, ne garde que les 3 meilleurs.
-8. Réponds UNIQUEMENT avec le contenu du fichier YAML. Pas de blabla.
-
-Réponse (YAML uniquement) :
+### INSTRUCTIONS CRITIQUES :
+1. **DÉDOUBLONNAGE** : Ne garde qu'une seule variante par synergie principale (le meilleur classé).
+2. **SYNERGIES** : La liste `synergies` ne doit contenir QUE des noms de traits (ex: "Noxus", "Void"), JAMAIS de noms de champions.
+3. **EARLY GAME (STRICT)** : Le champ `early_chercher` doit aider le joueur à savoir quoi acheter aux niveaux 3, 4 et 5 (Stage 2). 
+   - Choisis UNIQUEMENT des champions de coût 1, 2 ou 3.
+   - **INTERDICTION ABSOLUE** de mettre des champions à 4 ou 5 golds dans `early_chercher`. 
+   - Ces champions DOIVENT avoir un rapport direct avec la compo (partager les mêmes traits principaux).
+4. **STARS** : Pour les compos "Reroll", mets `stars: 3` pour les champions clés. Sinon `stars: 2`.
+5. **CHAMPIONS_DB** : Liste TOUS les champions uniques.
+6. **ITEMS (LE PLUS IMPORTANT)** : 
+   - Utilise les items scrappés comme base.
+   - **CORRECTION STATISTIQUE** : Si les items scrappés pour un champion carry semblent incomplets ou bizarres, utilise tes connaissances d'expert pour mettre les 3 REELS MEILLEURS ITEMS BIBS (Best In Slot) du set actuel.
+   - Un carry AD doit avoir des items AD (Infinity Edge, Last Whisper, etc.).
+   - Un carry AP doit avoir des items AP (Jeweled Gauntlet, Spear of Shojin, etc.).
+   - Un tank doit avoir des items tank (Warmog, Bramble Vest, etc.).
+   - NE METS JAMAIS de nom de champion dans la liste des items.
+6. Réponds UNIQUEMENT en YAML.
 """
 
-    print("Appel à OpenAI pour le formatage...")
+    print("Appel à OpenAI pour le formatage et la correction des items...")
     response = client.chat.completions.create(
         model="gpt-4o",
         messages=[{"role": "user", "content": prompt}],
@@ -156,12 +155,11 @@ def main():
     try:
         raw_comps, cost_mapping = scrape_tactics_tools()
         if not raw_comps:
-            print("Aucune composition trouvée. Vérifiez les sélecteurs.")
+            print("Aucune composition trouvée.")
             return
             
-        print(f"Trouvé {len(raw_comps)} compositions.")
+        print(f"Trouvé {len(raw_comps)} compositions. Nettoyage via OpenAI...")
         
-        # Transformer via OpenAI avec le nouveau format
         new_yaml_content = generate_yaml_with_openai(raw_comps, cost_mapping)
         
         if new_yaml_content.startswith("```"):
@@ -170,7 +168,39 @@ def main():
         with open(meta_path, 'w', encoding='utf-8') as f:
             f.write(new_yaml_content)
             
-        print("Mise à jour de meta.yaml réussie avec la base de données champions !")
+        # Post-nettoyage manuel de sécurité pour l'early_chercher
+        try:
+            with open(meta_path, 'r', encoding='utf-8') as f:
+                final_data = yaml.safe_load(f)
+            
+            if final_data and 'meta' in final_data and 'champions_db' in final_data:
+                db = final_data['champions_db']
+                for comp in final_data['meta']:
+                    early_champs = [c.strip() for c in comp.get('early_chercher', '').split('/')]
+                    cleaned_early = []
+                    for name in early_champs:
+                        # Si le champion est dans la DB, on check son coût
+                        cost = db.get(name, {}).get('cost', 0)
+                        if cost > 0 and cost < 4:
+                            cleaned_early.append(name)
+                        elif cost == 0:
+                            # Si pas dans la DB, on le garde par défaut ou on pourrait l'ignorer
+                            # Mais normalement OpenAI l'a mis dans la DB
+                            cleaned_early.append(name)
+                    
+                    if cleaned_early:
+                        comp['early_chercher'] = " / ".join(cleaned_early)
+                    else:
+                        # Fallback : si tout a été supprimé, on cherche des 1-2 golds dans la compo
+                        fallback = [c['name'] for c in comp.get('champions', []) if db.get(c['name'], {}).get('cost', 5) < 3]
+                        comp['early_chercher'] = " / ".join(fallback[:3]) if fallback else "Early Units"
+
+                with open(meta_path, 'w', encoding='utf-8') as f:
+                    yaml.dump(final_data, f, allow_unicode=True, sort_keys=False)
+        except Exception as e:
+            print(f"Erreur lors du post-nettoyage : {e}")
+
+        print("Mise à jour de meta.yaml réussie !")
         
     except Exception as e:
         print(f"Erreur : {e}")

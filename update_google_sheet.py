@@ -808,9 +808,9 @@ def update_google_sheet(
                                 "endColumnIndex": col_champions_start + idx,
                             },
                             "cell": {"userEnteredFormat": {"backgroundColor": bg_color}},
-                            "fields": "userEnteredFormat(backgroundColor)",
-                        }
-                    })
+                    "fields": "userEnteredFormat(backgroundColor)",
+                }
+            })
 
             # --- FOCUS NOMS CHAMPIONS (Ligne 2 du bloc) : Texte plus petit et info étoiles ---
             requests.append({
@@ -965,8 +965,8 @@ def update_google_sheet(
                     }
                 },
                 "fields": "userEnteredFormat(horizontalAlignment,verticalAlignment,wrapStrategy)"
-            }
-        })
+                    }
+                })
 
         if requests:
             service.spreadsheets().batchUpdate(
