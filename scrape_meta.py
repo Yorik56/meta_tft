@@ -42,6 +42,25 @@ def scrape_tactics_tools():
             
             # Extraire les champions et leurs items de manière structurée
             champion_data = []
+            
+            # Tenter d'extraire le placement moyen pour le classement dynamique
+            avg_place = "4.5" # Valeur par défaut (B)
+            # On cherche tous les divs dans le container
+            all_divs = container.find_all('div')
+            for i, d in enumerate(all_divs):
+                txt = d.get_text(strip=True)
+                if txt == 'Place' and i + 1 < len(all_divs):
+                    # Le placement est souvent le div juste après
+                    avg_place = all_divs[i+1].get_text(strip=True)
+                    # Vérifier que c'est bien un nombre
+                    if not re.match(r'^\d\.\d+$', avg_place):
+                        # Si c'est pas le div suivant, on cherche un peu plus loin
+                        for j in range(i+1, min(i+4, len(all_divs))):
+                            potential = all_divs[j].get_text(strip=True)
+                            if re.match(r'^\d\.\d+$', potential):
+                                avg_place = potential
+                                break
+                    break
             unit_containers = container.find_all('div', class_=lambda x: x and 'items-center' in x and 'flex-col' in x)
             
             if not unit_containers:
@@ -79,7 +98,8 @@ def scrape_tactics_tools():
                 
             comps.append({
                 "name": text,
-                "champions": champion_data
+                "champions": champion_data,
+                "avg_place": avg_place
             })
             
             if len(comps) >= 20:
@@ -104,14 +124,28 @@ Ta mission est de les transformer en un fichier YAML structuré.
 ### FORMAT ATTENDU :
 ```yaml
 meta:
-  - classement: "S"
+  - classement: "S" (ou S+, A+, A, B selon l'avg_place)
     compo: "Nom de la compo"
     early_chercher: "Champion1 / Champion2 / ..."
     carries: "Champion1 / Champion2"
     synergies: ["Trait1", "Trait2"]
-    compo_complete: "Liste des 7-8 champions"
+    compo_complete: "Liste des 7-9 champions"
     champions: 
-      - name: "Nom"
+      - name: "Champ1"
+        stars: 2
+      - name: "Champ2"
+        stars: 2
+      - name: "Champ3"
+        stars: 3
+      - name: "Champ4"
+        stars: 2
+      - name: "Champ5"
+        stars: 2
+      - name: "Champ6"
+        stars: 2
+      - name: "Champ7"
+        stars: 2
+      - name: "Champ8"
         stars: 2
 
 champions_db:
@@ -122,14 +156,22 @@ champions_db:
 ```
 
 ### INSTRUCTIONS CRITIQUES :
-1. **DÉDOUBLONNAGE** : Ne garde qu'une seule variante par synergie principale (le meilleur classé).
+1. **CLASSEMENT DYNAMIQUE** : Utilise le champ `avg_place` pour déterminer le `classement` (Tier) :
+   - `avg_place` < 4.15  => **S+**
+   - `avg_place` 4.15 - 4.25 => **S**
+   - `avg_place` 4.25 - 4.35 => **A+**
+   - `avg_place` 4.35 - 4.45 => **A**
+   - `avg_place` > 4.45 => **B**
+2. **DÉDOUBLONNAGE** : Ne garde qu'une seule variante par synergie principale (le meilleur classé).
 2. **SYNERGIES** : La liste `synergies` ne doit contenir QUE des noms de traits (ex: "Noxus", "Void"), JAMAIS de noms de champions.
 3. **EARLY GAME (STRICT)** : Le champ `early_chercher` doit aider le joueur à savoir quoi acheter aux niveaux 3, 4 et 5 (Stage 2). 
    - Choisis UNIQUEMENT des champions de coût 1, 2 ou 3.
    - **INTERDICTION ABSOLUE** de mettre des champions à 4 ou 5 golds dans `early_chercher`. 
-   - Ces champions DOIVENT avoir un rapport direct avec la compo (partager les mêmes traits principaux).
-4. **STARS** : Pour les compos "Reroll", mets `stars: 3` pour les champions clés. Sinon `stars: 2`.
-5. **CHAMPIONS_DB** : Liste TOUS les champions uniques.
+   - Ces champions DOIVENT avoir un rapport direct avec la compo (partager les mêmes traits principaux). Si la compo n'a que des champions chers, invente un début de partie cohérent avec les traits.
+4. **LISTE DES CHAMPIONS (CRITIQUE)** : La clé `champions` dans `meta` doit contenir **TOUS** les champions de la composition finale (généralement 7 à 9 champions). C'est ce qui définit le nombre de portraits affichés !
+   - Pour chaque champion, mets `stars: 2`.
+   - Pour les compos "Reroll", mets `stars: 3` pour les champions carries/tanks clés (coût 1, 2 ou 3).
+5. **CHAMPIONS_DB** : Liste TOUS les champions uniques rencontrés.
 6. **ITEMS (LE PLUS IMPORTANT)** : 
    - Utilise les items scrappés comme base.
    - **CORRECTION STATISTIQUE** : Si les items scrappés pour un champion carry semblent incomplets ou bizarres, utilise tes connaissances d'expert pour mettre les 3 REELS MEILLEURS ITEMS BIBS (Best In Slot) du set actuel.
@@ -137,7 +179,7 @@ champions_db:
    - Un carry AP doit avoir des items AP (Jeweled Gauntlet, Spear of Shojin, etc.).
    - Un tank doit avoir des items tank (Warmog, Bramble Vest, etc.).
    - NE METS JAMAIS de nom de champion dans la liste des items.
-6. Réponds UNIQUEMENT en YAML.
+7. Réponds UNIQUEMENT en YAML.
 """
 
     print("Appel à OpenAI pour le formatage et la correction des items...")

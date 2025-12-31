@@ -1,10 +1,11 @@
 meta:
 - classement: S
   compo: Noxus Kindred & SkarnerCoreFlex
-  early_chercher: Draven
+  early_chercher: Kog'Maw / Cho'Gath / Ashe
   carries: Lucian & Senna / Skarner
   synergies:
   - Noxus
+  - Kindred
   compo_complete: Skarner / Swain / Taric / Lucian & Senna / Draven / Ambessa / Miss
     Fortune / Fiddlesticks
   champions:
@@ -25,21 +26,46 @@ meta:
   - name: Fiddlesticks
     stars: 2
 - classement: S
+  compo: Void Kai'Sa & Rift HeraldCoreFlex
+  early_chercher: Kog'Maw / Cho'Gath / Ashe
+  carries: Kai'Sa / Rift Herald
+  synergies:
+  - Void
+  - Kai'Sa
+  compo_complete: Kog'Maw / Cho'Gath / Kai'Sa / Rift Herald / Volibear / Bel'Veth
+    / Baron Nashor
+  champions:
+  - name: Kog'Maw
+    stars: 2
+  - name: Cho'Gath
+    stars: 2
+  - name: Kai'Sa
+    stars: 2
+  - name: Rift Herald
+    stars: 2
+  - name: Volibear
+    stars: 2
+  - name: Bel'Veth
+    stars: 2
+  - name: Baron Nashor
+    stars: 2
+- classement: S
   compo: Freljord Tryndamere & AsheCoreFlex
-  early_chercher: Ashe / Tryndamere / Neeko
+  early_chercher: Briar / Ashe / Neeko
   carries: Ashe / Tryndamere
   synergies:
   - Freljord
+  - Tryndamere
   compo_complete: Briar / Ashe / Neeko / Tryndamere / Draven / Sejuani / Swain / Volibear
   champions:
   - name: Briar
     stars: 2
   - name: Ashe
-    stars: 3
+    stars: 2
   - name: Neeko
     stars: 2
   - name: Tryndamere
-    stars: 3
+    stars: 2
   - name: Draven
     stars: 2
   - name: Sejuani
@@ -50,83 +76,61 @@ meta:
     stars: 2
 - classement: S
   compo: Ionia Yunara & WukongCoreFlex
-  early_chercher: Shen / Jhin
+  early_chercher: Ashe / Kennen / Sejuani
   carries: Yunara / Wukong
   synergies:
   - Ionia
-  compo_complete: Shen / Wukong / Yunara / Sett / Jhin / Taric / Fiddlesticks / Lucian
-    & Senna
+  - Yunara
+  compo_complete: Wukong / Yunara / Ashe / Kennen / Sejuani / Lissandra / Renekton
+    / Azir
   champions:
-  - name: Shen
-    stars: 2
   - name: Wukong
     stars: 2
   - name: Yunara
-    stars: 3
-  - name: Sett
     stars: 2
-  - name: Jhin
+  - name: Ashe
     stars: 2
-  - name: Taric
+  - name: Kennen
     stars: 2
-  - name: Fiddlesticks
+  - name: Sejuani
     stars: 2
-  - name: Lucian & Senna
+  - name: Lissandra
     stars: 2
-- classement: S
-  compo: Void Kai'Sa & Rift HeraldCoreFlex
-  early_chercher: Kog'Maw / Cho'Gath
-  carries: Kai'Sa / Rift Herald
-  synergies:
-  - Void
-  compo_complete: Kog'Maw / Cho'Gath / Kai'Sa / Rift Herald / Volibear / Bel'Veth
-    / Baron Nashor
-  champions:
-  - name: Kog'Maw
+  - name: Renekton
     stars: 2
-  - name: Cho'Gath
+  - name: Azir
     stars: 2
-  - name: Kai'Sa
-    stars: 3
-  - name: Rift Herald
-    stars: 2
-  - name: Volibear
-    stars: 2
-  - name: Bel'Veth
-    stars: 2
-  - name: Baron Nashor
-    stars: 2
-- classement: S
+- classement: A
   compo: Ionia Yasuo & YoneCoreFlex
-  early_chercher: Shen / Yasuo
+  early_chercher: Shen / Yasuo / Xin Zhao
   carries: Yasuo / Yone
   synergies:
   - Ionia
-  compo_complete: Shen / Yasuo / Wukong / Yone / Sett / Kennen / Yunara / Lucian &
-    Senna
+  - Yasuo
+  compo_complete: Shen / Yasuo / Wukong / Yone / Sett / Xin Zhao / Kennen / Yunara
   champions:
   - name: Shen
     stars: 2
   - name: Yasuo
-    stars: 3
+    stars: 2
   - name: Wukong
     stars: 2
   - name: Yone
-    stars: 3
+    stars: 2
   - name: Sett
+    stars: 2
+  - name: Xin Zhao
     stars: 2
   - name: Kennen
     stars: 2
   - name: Yunara
-    stars: 2
-  - name: Lucian & Senna
     stars: 2
 champions_db:
   Skarner:
     cost: 4
     traits:
     - Noxus
-    - Brawler
+    - Kindred
     items:
     - Evenshroud
     - Sunfire Cape
@@ -135,150 +139,67 @@ champions_db:
     cost: 4
     traits:
     - Noxus
-    - Sorcerer
-    items: []
+    - Kindred
+    items:
+    - Freljord Emblem
   Taric:
     cost: 4
     traits:
     - Noxus
-    - Guardian
+    - Kindred
     items:
     - Evenshroud
   Lucian & Senna:
     cost: 5
     traits:
     - Noxus
-    - Gunner
+    - Kindred
     items:
     - Red Buff
     - Last Whisper
-    - Infinity Edge
   Draven:
     cost: 3
     traits:
     - Noxus
-    - Challenger
+    - Kindred
     items: []
   Ambessa:
     cost: 4
     traits:
     - Noxus
-    - Brawler
+    - Kindred
     items: []
   Miss Fortune:
     cost: 4
     traits:
     - Noxus
-    - Gunner
+    - Kindred
     items: []
   Fiddlesticks:
     cost: 5
     traits:
     - Noxus
-    - Sorcerer
+    - Kindred
     items:
     - Thief's Gloves
-  Briar:
-    cost: 1
-    traits:
-    - Freljord
-    - Brawler
-    items: []
-  Ashe:
-    cost: 2
-    traits:
-    - Freljord
-    - Ranger
-    items:
-    - Last Whisper
-    - Deathblade
-    - Giant Slayer
-  Neeko:
-    cost: 2
-    traits:
-    - Freljord
-    - Sorcerer
-    items:
-    - Evenshroud
-  Tryndamere:
-    cost: 2
-    traits:
-    - Freljord
-    - Challenger
-    items:
-    - Quicksilver
-    - Titan's Resolve
-    - Edge of Night
-  Sejuani:
-    cost: 3
-    traits:
-    - Freljord
-    - Brawler
-    items:
-    - Evenshroud
-    - Spirit Visage
-  Volibear:
-    cost: 5
-    traits:
-    - Freljord
-    - Brawler
-    items: []
-  Shen:
-    cost: 1
-    traits:
-    - Ionia
-    - Brawler
-    items: []
-  Wukong:
-    cost: 4
-    traits:
-    - Ionia
-    - Brawler
-    items:
-    - Evenshroud
-    - Thief's Gloves
-    - Sunfire Cape
-  Yunara:
-    cost: 4
-    traits:
-    - Ionia
-    - Sorcerer
-    items:
-    - Infinity Edge
-    - Kraken's Fury
-    - Last Whisper
-  Sett:
-    cost: 5
-    traits:
-    - Ionia
-    - Brawler
-    items:
-    - Hextech Gunblade
-    - Titan's Resolve
-  Jhin:
-    cost: 1
-    traits:
-    - Ionia
-    - Sniper
-    items: []
   Kog'Maw:
     cost: 1
     traits:
     - Void
-    - Gunner
+    - Kai'Sa
     items: []
   Cho'Gath:
     cost: 2
     traits:
     - Void
-    - Brawler
+    - Kai'Sa
     items:
     - Sunfire Cape
   Kai'Sa:
     cost: 4
     traits:
     - Void
-    - Gunner
+    - Kai'Sa
     items:
     - Hextech Gunblade
     - Guinsoo's Rageblade
@@ -287,47 +208,148 @@ champions_db:
     cost: 4
     traits:
     - Void
-    - Brawler
+    - Kai'Sa
     items:
     - Spirit Visage
     - Bramble Vest
     - Protector's Vow
+  Volibear:
+    cost: 5
+    traits:
+    - Void
+    - Kai'Sa
+    items: []
   Bel'Veth:
     cost: 4
     traits:
     - Void
-    - Challenger
+    - Kai'Sa
     items:
     - Quicksilver
   Baron Nashor:
     cost: 5
     traits:
     - Void
-    - Brawler
+    - Kai'Sa
     items:
     - Infinity Edge
     - Hand Of Justice
-  Yasuo:
+  Briar:
+    cost: 1
+    traits:
+    - Freljord
+    - Tryndamere
+    items: []
+  Ashe:
     cost: 2
     traits:
-    - Ionia
-    - Challenger
+    - Freljord
+    - Tryndamere
     items:
-    - Infinity Edge
-    - Bloodthirster
+    - Last Whisper
+    - Deathblade
+    - Giant Slayer
+  Neeko:
+    cost: 2
+    traits:
+    - Freljord
+    - Tryndamere
+    items:
+    - Evenshroud
+  Tryndamere:
+    cost: 2
+    traits:
+    - Freljord
+    - Tryndamere
+    items:
     - Quicksilver
-  Yone:
+    - Titan's Resolve
+    - Edge of Night
+  Sejuani:
+    cost: 3
+    traits:
+    - Freljord
+    - Tryndamere
+    items:
+    - Evenshroud
+    - Spirit Visage
+  Wukong:
     cost: 4
     traits:
     - Ionia
-    - Challenger
+    - Yunara
     items:
-    - Titan's Resolve
-    - Guinsoo's Rageblade
-    - Quicksilver
+    - Evenshroud
+    - Thief's Gloves
+    - Sunfire Cape
+  Yunara:
+    cost: 4
+    traits:
+    - Ionia
+    - Yunara
+    items:
+    - Infinity Edge
+    - Kraken's Fury
+    - Last Whisper
   Kennen:
     cost: 3
     traits:
     - Ionia
-    - Sorcerer
+    - Yunara
     items: []
+  Lissandra:
+    cost: 4
+    traits:
+    - Ionia
+    - Yunara
+    items:
+    - Spear of Shojin
+  Renekton:
+    cost: 4
+    traits:
+    - Ionia
+    - Yunara
+    items: []
+  Azir:
+    cost: 5
+    traits:
+    - Ionia
+    - Yunara
+    items: []
+  Shen:
+    cost: 1
+    traits:
+    - Ionia
+    - Yasuo
+    items: []
+  Yasuo:
+    cost: 2
+    traits:
+    - Ionia
+    - Yasuo
+    items:
+    - Infinity Edge
+    - Quicksilver
+    - Bloodthirster
+  Yone:
+    cost: 4
+    traits:
+    - Ionia
+    - Yasuo
+    items:
+    - Titan's Resolve
+    - Guinsoo's Rageblade
+    - Quicksilver
+  Sett:
+    cost: 5
+    traits:
+    - Ionia
+    - Yasuo
+    items: []
+  Xin Zhao:
+    cost: 2
+    traits:
+    - Ionia
+    - Yasuo
+    items:
+    - Evenshroud
